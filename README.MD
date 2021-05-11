@@ -19,92 +19,13 @@ Key Benefits:
 
 
 Config File Tutorial:
-1. Starting config file:
 
-    {
-      "_config":{
-        "assets":"assets",
-        "settings":"settings",
-        "systemExceptions":"systemExceptions",
-        "businessExceptions":"businessExceptions",
-        "credentials":"credentials"
-    },     
-      "assets": {
-        "_useLocalValues": "true",
-        "mailServer": "outlook365.office.com",
-        "ITEmail": "it@domain.com",
-        "BusinessEmail": "business@domain.com",
-        "ScreenshotPath": "Screenshots\\"
-    },
-    "credentials": {
-        "webapp1": "webapp1"
-    },
-    "settings": {
-        "process": {
-            "queue": "FrameworkQueue",
-            "name": "GLamework",
-            "readOnlyMode": "true",
-            "performerMaxRetry":"3",
-            "howToAddStringsInConfig":"${settings.process.queue + `: ` + settings.process.name}"
-        },
-        "network": {
-            "retryCount": {
-                "low": "1",
-                "med": "3",
-                "high": "5"
-            },
-            "retryTimeout": {
-                "low": "00:00:02",
-                "med": "00:00:05",
-                "high": "00:00:10"
-            }
-        },
-        "framework": {
-            "enableDispatchLoop": "false",
-            "dispatchMode": "QA",
-            "TestDataPath": "Data\\test.xlsx",
-            "maintenanceStart": "2:00:00",
-            "maintenanceEnd": "4:00:00",
-            "failJobOnScreenshot": "true"
-        },
-        "initialize": {
-            "id": "initialize",
-            "delay": "00:15:00",
-            "max": "3",
-            "email":{
-                "to": "${assets.ITEmail}",
-                "subject": "",
-                "body": ""
-            }
-        },
-        "dispatcher": {
-            "id": "dispatch",
-            "delay": "00:15:00",
-            "max": "3",
-            "email":{
-                "to": "${assets.ITEmail}",
-                "subject": "",
-                "body": ""
-            }
-        },
-        "performer":{
-            "id": "perform"
-        }
-    },
-    "systemExceptions": {
-        "dispatcher":{
-            "invalidMode":"Invalid framework.dispatchMode: QA, PROD"
-        },
-        "handleStateExceptions": {
-            "invalidRoute": "HandleStateExceptions encountered an unexpected state."
-        }
-    },
-    "businessExceptions":{
-        "step1":{
-            "exception1":"Message for exception 1",
-            "exception2":"Message for exception 2"
-        }
-    }
-    }
+You will notice that there is a unique object at the beginning of the config.json file  starting with an underscore. This is the object where we define how we want our structures to be. When the bot reads the JSON for the first time, it will iterate through and find all of the leaf nodes. Then it will organize the leaf nodes in the structures defined here. 
 
+In the template provided, all of the structures are single-root structures. This means that we will be flattening all of the leaf nodes found in each of the root elements (assets, settings, systemExceptions, etc.) and compile them into a single dictionary for us to use in the process.
 
+In effect, this means that our Settings dictionary will have a value of 'FrameworkQueue' with the key of 'process.queue'.
+
+There is also support to combine multi-root structures into a single Dictionary. Simply set the structure definition to concatenate all of the root node elements that you would like to include in that structure and voila! 
+
+Ie. If I create a new struc with the definition: <code>"testStruct":"settings.framework + systemExceptions"</code>, then this structure will contain the flattened contents of both settings.framework's children leaf nodes, as well as systemExceptions'. 
