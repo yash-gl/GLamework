@@ -15,6 +15,8 @@ The purpose of this library is to provide a better starting point for UiPath RPA
   - Added a loop back to dispatch feature to go back to dispatcher state after no transactions are found; configurable via a config variable
   - Implemented a dynamic logging framework that allows us to pass context between all workflows
   - Added in_RunMode argument and associated logic for all nested workflows to allow running it at the unit level
+  - Added support for post-max-failure steps and associated exception handling
+  - Added backwards-compatibility with Re-Framework config excels
   - **Removed depending on the Orchestrator queue as it does not allow storing data in output fields for failed transactions. Workaround implemented does not interfere with orchestrator retries, but will interfere (mildly) with queue monitoring and reporting.**
 
 
