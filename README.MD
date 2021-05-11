@@ -2,12 +2,12 @@
 
 The purpose of this library is to provide a better starting point for UiPath RPA processes than the out-of-box REFramework. Currently, the only type of framework is 1 Dispatcher-1 Performer.
 
-Key Benefits:
-- Config File and Organization
+## Key Benefits:
+- **Config File and Organization**
   - Dynamically create your configuration structures based on a bottom-up syntax of JToken paths
   - Dynamically assign configuration variables based on other variables after assets are loaded
   - Added support for more developer-friendly .json file
-- Overall
+- **Overall**
   - Added in_EnableInitialization, in_EnableDispatcher, and in_EnablePerformer for completely modular scalability
   - Added Stop Requested checks at the beginning of every state, so as to keep the bot responsive to Orchestrator
   - Added HandleStateException workflow to take screenshots at all exceptions throughout the process and send emails if the maximum Initialization or Dispatching errors are reached
@@ -18,7 +18,7 @@ Key Benefits:
 
 
 
-Config File Tutorial:
+## Config File Tutorial:
 
 You will notice that there is a unique object at the beginning of the config.json file  starting with an underscore. This is the object where we define how we want our structures to be. When the bot reads the JSON for the first time, it will iterate through and find all of the leaf nodes. Then it will organize the leaf nodes in the structures defined here. 
 
