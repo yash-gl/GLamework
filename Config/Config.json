@@ -1,0 +1,85 @@
+{
+    "_config":{
+        "assets":"assets",
+        "settings":"settings",
+        "systemExceptions":"systemExceptions",
+        "businessExceptions":"businessExceptions",
+        "credentials":"credentials"
+    },
+    "assets": {
+        "_useLocalValues": "true",
+        "mailServer": "outlook365.office.com",
+        "ITEmail": "it@domain.com",
+        "BusinessEmail": "business@domain.com",
+        "ScreenshotPath": "Screenshots\\"
+    },
+    "credentials": {
+        "webapp1": "webapp1"
+    },
+    "settings": {
+        "process": {
+            "queue": "FrameworkQueue",
+            "name": "GLamework",
+            "readOnlyMode": "true",
+            "performerMaxRetry":"3",
+            "howToAddStringsInConfig":"${settings.process.queue + `: ` + settings.process.name}"
+        },
+        "network": {
+            "retryCount": {
+                "low": "1",
+                "med": "3",
+                "high": "5"
+            },
+            "retryTimeout": {
+                "low": "00:00:02",
+                "med": "00:00:05",
+                "high": "00:00:10"
+            }
+        },
+        "framework": {
+            "enableDispatchLoop": "false",
+            "dispatchMode": "QA",
+            "TestDataPath": "Data\\test.xlsx",
+            "maintenanceStart": "2:00:00",
+            "maintenanceEnd": "4:00:00",
+            "failJobOnScreenshot": "true"
+        },
+        "initialize": {
+            "id": "initialize",
+            "delay": "00:15:00",
+            "max": "3",
+            "email":{
+                "to": "${assets.ITEmail}",
+                "subject": "",
+                "body": ""
+            }
+        },
+        "dispatcher": {
+            "id": "dispatch",
+            "delay": "00:15:00",
+            "max": "3",
+            "email":{
+                "to": "${assets.ITEmail}",
+                "subject": "",
+                "body": ""
+            }
+        },
+        "performer":{
+            "id": "perform"
+        }
+    },
+    "systemExceptions": {
+        "dispatcher":{
+            "invalidMode":"Invalid framework.dispatchMode: QA, PROD"
+        },
+        "handleStateExceptions": {
+            "invalidRoute": "HandleStateExceptions encountered an unexpected state."
+        }
+    },
+    "businessExceptions":{
+        "step1":{
+            "exception1":"Message for exception 1",
+            "exception2":"Message for exception 2"
+        }
+    }
+}

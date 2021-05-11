@@ -3,10 +3,13 @@
   "description": "Framework for automation",
   "main": "Main.xaml",
   "dependencies": {
+    "GL.UiPathWrapper.Activities": "[1.0.12]",
+    "MyPackage": "[1.0.0]",
     "UiPath.Excel.Activities": "[2.7.2]",
     "UiPath.Mail.Activities": "[1.8.5]",
-    "UiPath.System.Activities": "[19.10.1]",
-    "UiPath.UIAutomation.Activities": "[19.11.0]"
+    "UiPath.System.Activities": "[21.4.0]",
+    "UiPath.Terminal.Activities": "[2.2.0]",
+    "UiPath.UIAutomation.Activities": "[21.4.3]"
   },
   "webServices": [],
   "entitiesStores": [],
