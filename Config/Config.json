@@ -4,7 +4,8 @@
         "settings":"settings",
         "systemExceptions":"systemExceptions",
         "businessExceptions":"businessExceptions",
-        "credentials":"credentials"
+        "credentials":"credentials",
+        "test":"settings.process + settings.framework"
     },
     "assets": {
         "_useLocalValues": "true",
@@ -21,7 +22,6 @@
             "queue": "FrameworkQueue",
             "name": "GLamework",
             "readOnlyMode": "true",
-            "performerMaxRetry":"3",
             "howToAddStringsInConfig":"${settings.process.queue + `: ` + settings.process.name}"
         },
         "network": {
@@ -39,7 +39,7 @@
         "framework": {
             "enableDispatchLoop": "false",
             "dispatchMode": "QA",
-            "TestDataPath": "Data\\test.xlsx",
+            "testDataPath": "Data\\test.xlsx",
             "maintenanceStart": "2:00:00",
             "maintenanceEnd": "4:00:00",
             "failJobOnScreenshot": "true"
@@ -65,7 +65,8 @@
             }
         },
         "performer":{
-            "id": "perform"
+            "id": "perform",
+            "max":"3"
         }
     },
     "systemExceptions": {

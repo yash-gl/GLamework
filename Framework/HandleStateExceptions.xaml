@@ -20,7 +20,7 @@
   <mva:VisualBasic.Settings>
     <x:Null />
   </mva:VisualBasic.Settings>
-  <sap:VirtualizedContainerService.HintSize>1737,2322</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>1650,1624</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>HandleStateExceptions_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
     <scg:List x:TypeArguments="x:String" Capacity="29">
@@ -85,10 +85,9 @@
       <AssemblyReference>UiPath.OCR.Activities.Design</AssemblyReference>
       <AssemblyReference>UiPath.UIAutomationCore</AssemblyReference>
       <AssemblyReference>UiPath.Mail</AssemblyReference>
-      <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
     </scg:List>
   </TextExpression.ReferencesForImplementation>
-  <Sequence DisplayName="HandleStateExceptions" sap:VirtualizedContainerService.HintSize="1056,2157" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence DisplayName="HandleStateExceptions" sap:VirtualizedContainerService.HintSize="1056,1459" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <Sequence.Variables>
       <Variable x:TypeArguments="x:String" Name="screenshotPath" />
       <Variable x:TypeArguments="x:String" Default="Framework.HandleStateExceptions" Name="activityName" />
@@ -98,7 +97,7 @@
         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
-    <Switch x:TypeArguments="x:String" DisplayName="RunMode Switch" Expression="[in_RunMode]" sap:VirtualizedContainerService.HintSize="1014,374" sap2010:WorkflowViewState.IdRef="Switch`1_1">
+    <Switch x:TypeArguments="x:String" DisplayName="RunMode Switch" Expression="[in_RunMode]" sap:VirtualizedContainerService.HintSize="1014,138" sap2010:WorkflowViewState.IdRef="Switch`1_1">
       <Sequence x:Key="Unit" DisplayName="Initialize Unit Run" sap:VirtualizedContainerService.HintSize="376,190" sap2010:WorkflowViewState.IdRef="Sequence_8">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
@@ -138,7 +137,13 @@
         <InArgument x:TypeArguments="x:String">[Path.Combine(in_Settings("path.screenshot"), in_Outcome + "_" + Now.ToString("yyyyMMdd HHmmss") + ".png")]</InArgument>
       </Assign.Value>
     </Assign>
-    <TryCatch DisplayName="Try Saving Screenshot" sap:VirtualizedContainerService.HintSize="1014,513" sap2010:WorkflowViewState.IdRef="TryCatch_2">
+    <TryCatch DisplayName="Try Saving Screenshot" sap:VirtualizedContainerService.HintSize="1014,51" sap2010:WorkflowViewState.IdRef="TryCatch_2">
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+          <x:Boolean x:Key="IsPinned">False</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
       <TryCatch.Try>
         <ui:RetryScope DisplayName="Get Asset Retry" sap:VirtualizedContainerService.HintSize="376,286" sap2010:WorkflowViewState.IdRef="RetryScope_1" NumberOfRetries="[Cint(in_Settings(&quot;network.RetryCount.med&quot;))]" RetryInterval="[New TimeSpan(Cint(in_Settings(&quot;network.RetryTimeout.low&quot;).Split(&quot;:&quot;c)(0)), Cint(in_Settings(&quot;network.RetryTimeout.low&quot;).Split(&quot;:&quot;c)(1)), Cint(in_Settings(&quot;network.RetryTimeout.low&quot;).Split(&quot;:&quot;c)(2)))]">
           <ui:RetryScope.ActivityBody>
