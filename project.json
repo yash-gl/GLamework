@@ -1,12 +1,11 @@
 {
   "name": "GLamework",
   "description": "Framework for automation",
-  "main": "Main.xaml",
+  "main": "lib\\Main.xaml",
   "dependencies": {
-    "UiPath.Excel.Activities": "[2.7.2]",
-    "UiPath.Mail.Activities": "[1.8.5]",
+    "UiPath.Excel.Activities": "[2.9.5]",
+    "UiPath.Mail.Activities": "[1.9.6]",
     "UiPath.System.Activities": "[21.4.0]",
-    "UiPath.Terminal.Activities": "[2.2.0]",
     "UiPath.UIAutomation.Activities": "[21.4.3]"
   },
   "webServices": [],
@@ -43,8 +42,8 @@
   "expressionLanguage": "VisualBasic",
   "entryPoints": [
     {
-      "filePath": "Main.xaml",
-      "uniqueId": "fdb372f7-35ef-4a62-af2f-638ac4ed3ee6",
+      "filePath": "lib\\Main.xaml",
+      "uniqueId": "40b54b56-15cf-450a-8216-adea9aa74892",
       "input": [],
       "output": []
     }

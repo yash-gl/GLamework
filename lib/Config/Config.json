@@ -1,0 +1,87 @@
+{
+    "Structures":{
+        "Assets":"Assets",
+        "Settings":"Settings",
+        "SystemExceptions":"SystemExceptions",
+        "BusinessExceptions":"BusinessExceptions",
+        "Credentials":"Credentials",
+        "Test":"Settings.process + settings.framework"
+    },
+    "Assets": {
+        "_UseLocalValues": "true",
+        "MailServer": "outlook365.office.com",
+        "ITEmail": "it@domain.com",
+        "BusinessEmail": "business@domain.com",
+        "ScreenshotPath": "Screenshots\\"
+    },
+    "Credentials": {
+        "Email":"Email.Credentials.CoE"
+    },
+    "Settings": {
+        "Environments":{
+            "Development":"_Dev",
+            "Testing":"_Test",
+            "Production":"_Prod"
+        },
+        "Process": {
+            "Queue":"$(Settings.Process.Name + Settings.Environments.Development)",
+            "Queues": {
+                "DevQueue":"$(Settings.Process.Name + Settings.Environments.Development)",
+                "TestQueue":"$(Settings.Process.Name + Settings.Environments.Testing)",
+                "ProdQueue":"$(Settings.Process.Name + Settings.Environments.Production)"
+            },
+            "Name": "GLamework",
+            "ReadOnlyMode": "true"
+        },
+        "Network": {
+            "RetryCount": "3",
+            "RetryTimeout": "00:00:05"
+        },
+        "Framework": {
+            "EnableDispatchLoop": "false",
+            "DispatchMode": "QA",
+            "TestDataPath": "Data\\test.xlsx",
+            "MaintenanceStart": "2:00:00",
+            "MaintenanceEnd": "4:00:00",
+            "FailJobOnScreenshot": "true"
+        },
+        "Initialize": {
+            "ID":"Initialize",
+            "Outcome":"Email",
+            "Delay": "00:15:00",
+            "Max": "3",
+            "EmailTemplate":{
+                "To": "${assets.ITEmail}",
+                "Subject": "",
+                "Body": ""
+            }
+        },
+        "Dispatch": {
+            "ID":"Dispatch",
+            "Outcome":"Email",
+            "Delay": "00:15:00",
+            "Max": "3",
+            "EmailTemplate":{
+                "To": "${assets.ITEmail}",
+                "Subject": "",
+                "Body": ""
+            }
+        },
+        "Perform":{
+            "ID":"Perform",
+            "Outcome":"Log"
+        }
+    },
+    "SystemExceptions": {
+        "Dispatch":{
+            "InvalidMode":"Invalid Framework.DispatchMode: Valid Options - [QA, PROD]"
+        },
+        "HandleStateExceptions": {
+            "InvalidRoute": "HandleStateExceptions encountered an unexpected state.",
+            "MaxReached": "Maximum errors reached for state"
+        }
+    },
+    "BusinessExceptions":{
+
+    }
+}

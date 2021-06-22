@@ -1,0 +1,343 @@
+<Activity mc:Ignorable="sap sap2010" x:Class="HandleStateExceptions" this:HandleStateExceptions.in_Outcome="dispatcher" this:HandleStateExceptions.in_Exception="[new System.Exception]" this:HandleStateExceptions.in_Reference="Unit: " this:HandleStateExceptions.error_InvalidRoute="Unexpected route, please consult the documentation" this:HandleStateExceptions.error_MaxReached="Maximum state errors reached" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:av="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:ss="clr-namespace:System.Security;assembly=mscorlib" xmlns:this="clr-namespace:" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <x:Members>
+    <x:Property Name="in_Outcome" Type="InArgument(x:String)" />
+    <x:Property Name="in_Exception" Type="InArgument(s:Exception)" />
+    <x:Property Name="in_Reference" Type="InArgument(x:String)" />
+    <x:Property Name="in_RunMode" Type="InArgument(x:String)" />
+    <x:Property Name="in_MaxReached" Type="InArgument(x:Boolean)" />
+    <x:Property Name="in_FailOnScreenshot" Type="InArgument(x:Boolean)" />
+    <x:Property Name="error_InvalidRoute" Type="InArgument(x:String)" />
+    <x:Property Name="in_ScreenshotFolderPath" Type="InArgument(x:String)" />
+    <x:Property Name="error_MaxReached" Type="InArgument(x:String)" />
+    <x:Property Name="in_NetworkRetryCount" Type="InArgument(x:Int32)" />
+    <x:Property Name="in_NetworkRetryTimeout" Type="InArgument(x:TimeSpan)" />
+    <x:Property Name="in_EmailTo" Type="InArgument(x:String)" />
+    <x:Property Name="in_EmailSubjectTemplate" Type="InArgument(x:String)" />
+    <x:Property Name="in_EmailBodyTemplate" Type="InArgument(x:String)" />
+    <x:Property Name="in_StateDelay" Type="InArgument(x:TimeSpan)" />
+    <x:Property Name="in_MailServer" Type="InArgument(x:String)" />
+    <x:Property Name="in_EmailCredentialName" Type="InArgument(x:String)" />
+  </x:Members>
+  <this:HandleStateExceptions.in_FailOnScreenshot>
+    <InArgument x:TypeArguments="x:Boolean" />
+  </this:HandleStateExceptions.in_FailOnScreenshot>
+  <this:HandleStateExceptions.in_ScreenshotFolderPath>
+    <InArgument x:TypeArguments="x:String" />
+  </this:HandleStateExceptions.in_ScreenshotFolderPath>
+  <this:HandleStateExceptions.in_NetworkRetryCount>
+    <InArgument x:TypeArguments="x:Int32" />
+  </this:HandleStateExceptions.in_NetworkRetryCount>
+  <this:HandleStateExceptions.in_NetworkRetryTimeout>
+    <InArgument x:TypeArguments="x:TimeSpan" />
+  </this:HandleStateExceptions.in_NetworkRetryTimeout>
+  <this:HandleStateExceptions.in_EmailTo>
+    <InArgument x:TypeArguments="x:String" />
+  </this:HandleStateExceptions.in_EmailTo>
+  <this:HandleStateExceptions.in_EmailSubjectTemplate>
+    <InArgument x:TypeArguments="x:String" />
+  </this:HandleStateExceptions.in_EmailSubjectTemplate>
+  <this:HandleStateExceptions.in_EmailBodyTemplate>
+    <InArgument x:TypeArguments="x:String" />
+  </this:HandleStateExceptions.in_EmailBodyTemplate>
+  <this:HandleStateExceptions.in_StateDelay>
+    <InArgument x:TypeArguments="x:TimeSpan" />
+  </this:HandleStateExceptions.in_StateDelay>
+  <this:HandleStateExceptions.in_MailServer>
+    <InArgument x:TypeArguments="x:String" />
+  </this:HandleStateExceptions.in_MailServer>
+  <this:HandleStateExceptions.in_EmailCredentialName>
+    <InArgument x:TypeArguments="x:String" />
+  </this:HandleStateExceptions.in_EmailCredentialName>
+  <mva:VisualBasic.Settings>
+    <x:Null />
+  </mva:VisualBasic.Settings>
+  <sap:VirtualizedContainerService.HintSize>1968,2616</sap:VirtualizedContainerService.HintSize>
+  <sap2010:WorkflowViewState.IdRef>HandleStateExceptions_1</sap2010:WorkflowViewState.IdRef>
+  <TextExpression.NamespacesForImplementation>
+    <scg:List x:TypeArguments="x:String" Capacity="31">
+      <x:String>System.Activities</x:String>
+      <x:String>System.Activities.Statements</x:String>
+      <x:String>System.Activities.Expressions</x:String>
+      <x:String>System.Activities.Validation</x:String>
+      <x:String>System.Activities.XamlIntegration</x:String>
+      <x:String>Microsoft.VisualBasic</x:String>
+      <x:String>Microsoft.VisualBasic.Activities</x:String>
+      <x:String>System</x:String>
+      <x:String>System.Collections</x:String>
+      <x:String>System.Collections.Generic</x:String>
+      <x:String>System.Data</x:String>
+      <x:String>System.Diagnostics</x:String>
+      <x:String>System.Drawing</x:String>
+      <x:String>System.IO</x:String>
+      <x:String>System.Linq</x:String>
+      <x:String>System.Net.Mail</x:String>
+      <x:String>System.Xml</x:String>
+      <x:String>System.Xml.Linq</x:String>
+      <x:String>UiPath.Core</x:String>
+      <x:String>UiPath.Core.Activities</x:String>
+      <x:String>System.Windows.Markup</x:String>
+      <x:String>System.Collections.ObjectModel</x:String>
+      <x:String>System.Activities.DynamicUpdate</x:String>
+      <x:String>System.Runtime.Serialization</x:String>
+      <x:String>System.Reflection</x:String>
+      <x:String>System.Runtime.InteropServices</x:String>
+      <x:String>Microsoft.Exchange.WebServices.Data</x:String>
+      <x:String>UiPath.Mail.Exchange.Activities</x:String>
+      <x:String>Microsoft.VisualBasic.CompilerServices</x:String>
+      <x:String>UiPath.Mail</x:String>
+      <x:String>System.Security</x:String>
+    </scg:List>
+  </TextExpression.NamespacesForImplementation>
+  <TextExpression.ReferencesForImplementation>
+    <scg:List x:TypeArguments="AssemblyReference" Capacity="30">
+      <AssemblyReference>System.Activities</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
+      <AssemblyReference>mscorlib</AssemblyReference>
+      <AssemblyReference>System.Data</AssemblyReference>
+      <AssemblyReference>System.Data.DataSetExtensions</AssemblyReference>
+      <AssemblyReference>System</AssemblyReference>
+      <AssemblyReference>System.Drawing</AssemblyReference>
+      <AssemblyReference>System.Core</AssemblyReference>
+      <AssemblyReference>System.Xml</AssemblyReference>
+      <AssemblyReference>System.Xml.Linq</AssemblyReference>
+      <AssemblyReference>PresentationFramework</AssemblyReference>
+      <AssemblyReference>WindowsBase</AssemblyReference>
+      <AssemblyReference>PresentationCore</AssemblyReference>
+      <AssemblyReference>System.Xaml</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.UiAutomation.Activities</AssemblyReference>
+      <AssemblyReference>System.Runtime.Serialization</AssemblyReference>
+      <AssemblyReference>System.Memory</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities.Design</AssemblyReference>
+      <AssemblyReference>Microsoft.Exchange.WebServices</AssemblyReference>
+      <AssemblyReference>UiPath.Mail.Activities</AssemblyReference>
+      <AssemblyReference>System.ServiceModel</AssemblyReference>
+      <AssemblyReference>Microsoft.Bcl.AsyncInterfaces</AssemblyReference>
+      <AssemblyReference>System.ValueTuple</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.Composition</AssemblyReference>
+      <AssemblyReference>UiPath.OCR.Activities.Design</AssemblyReference>
+      <AssemblyReference>UiPath.UIAutomationCore</AssemblyReference>
+      <AssemblyReference>UiPath.Mail</AssemblyReference>
+      <AssemblyReference>UiPath.Excel</AssemblyReference>
+      <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
+    </scg:List>
+  </TextExpression.ReferencesForImplementation>
+  <Sequence sap2010:Annotation.AnnotationText="@TestCase&#xA;@ID: InitializeErrorLessThanMax&#xA;@Description: The bot delays by the configured amount before moving onto the next step&#xA;@Preconditions:&#xA;1) The necessary inputs are present&#xA;@Postconditions:&#xA;1) Screenshot of error taken saved with initialization id prefix to the exception folder path&#xA;2) Bot delays appropraite amount of time before completing&#xA;&#xA;@TestCase&#xA;@ID: InitializeErrorEqualToMax&#xA;@Description: The bot delays by the configured amount before moving onto the next step&#xA;@Preconditions:&#xA;1) The necessary inputs are present&#xA;@Postconditions:&#xA;1) Screenshot of error taken saved with initialization id prefix to the exception folder path&#xA;2) Bot sends an SOS email to the configured IT mailbox&#xA;3) Bot raises exception&#xA;&#xA;@TestCase&#xA;@ID: DispatchErrorLessThanMax&#xA;@Description: The bot delays by the configured amount before moving onto the next step&#xA;@Preconditions:&#xA;1) The necessary inputs are present&#xA;@Postconditions:&#xA;1) Screenshot of error taken saved with initialization id prefix to the exception folder path&#xA;2) Bot delays appropraite amount of time before completing&#xA;&#xA;@TestCase&#xA;@ID: DispatchErrorEqualToMax&#xA;@Description: The bot delays by the configured amount before moving onto the next step&#xA;@Preconditions:&#xA;1) The necessary inputs are present&#xA;@Postconditions:&#xA;1) Screenshot of error taken saved with initialization id prefix to the exception folder path&#xA;2) Bot sends an SOS email to the configured IT mailbox&#xA;3) Bot raises exception" DisplayName="Framework.HandleStateExceptions" sap:VirtualizedContainerService.HintSize="951.333333333333,2252" sap2010:WorkflowViewState.IdRef="Sequence_24">
+    <Sequence.Variables>
+      <Variable x:TypeArguments="x:String" Default="Framework.CloseApplications" Name="ActivityName" />
+      <Variable x:TypeArguments="x:String" Name="screenshotPath" />
+    </Sequence.Variables>
+    <sap:WorkflowViewStateService.ViewState>
+      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+        <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+        <x:Boolean x:Key="IsPinned">False</x:Boolean>
+      </scg:Dictionary>
+    </sap:WorkflowViewStateService.ViewState>
+    <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Invoke UpdateActivityName workflow" sap:VirtualizedContainerService.HintSize="909.333333333333,114" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_6" LogEntry="No" LogExit="No" UnSafe="False" WorkflowFileName="lib\Utility\UpdateActivityName.xaml">
+      <ui:InvokeWorkflowFile.Arguments>
+        <InOutArgument x:TypeArguments="x:String" x:Key="ActivityName">[ActivityName]</InOutArgument>
+        <InArgument x:TypeArguments="x:String" x:Key="in_Reference">[in_Reference]</InArgument>
+      </ui:InvokeWorkflowFile.Arguments>
+    </ui:InvokeWorkflowFile>
+    <ui:LogMessage DisplayName="LM: Start" sap:VirtualizedContainerService.HintSize="909.333333333333,94.6666666666667" sap2010:WorkflowViewState.IdRef="LogMessage_12" Level="Info" Message="[ActivityName + &quot;: Starting&quot;]" />
+    <Switch x:TypeArguments="x:String" DisplayName="RunMode Switch" Expression="[in_RunMode]" sap:VirtualizedContainerService.HintSize="909.333333333333,145.333333333333" sap2010:WorkflowViewState.IdRef="Switch`1_4">
+      <Sequence x:Key="Unit" DisplayName="Initialize Unit Run" sap:VirtualizedContainerService.HintSize="200,84.6666666666667" sap2010:WorkflowViewState.IdRef="Sequence_26">
+        <Sequence.Variables>
+          <Variable x:TypeArguments="x:String" Name="unit_ConfigPath" />
+        </Sequence.Variables>
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </Sequence>
+    </Switch>
+    <Sequence DisplayName="Take Screenshot" sap:VirtualizedContainerService.HintSize="909.333333333333,246.666666666667" sap2010:WorkflowViewState.IdRef="Sequence_25">
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+      <Assign DisplayName="Set Screenshot Path" sap:VirtualizedContainerService.HintSize="262,62" sap2010:WorkflowViewState.IdRef="Assign_6">
+        <Assign.To>
+          <OutArgument x:TypeArguments="x:String">[screenshotPath]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="x:String">[Path.Combine(in_ScreenshotFolderPath, in_Outcome + "_" + Now.ToString("yyyyMMdd HHmmss") + ".png")]</InArgument>
+        </Assign.Value>
+      </Assign>
+      <TryCatch DisplayName="Try Saving Screenshot" sap:VirtualizedContainerService.HintSize="262,52.6666666666667" sap2010:WorkflowViewState.IdRef="TryCatch_3">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+        <TryCatch.Try>
+          <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Invoke SaveScreenshot workflow" sap:VirtualizedContainerService.HintSize="334,114" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_9" LogEntry="No" LogExit="No" UnSafe="False" WorkflowFileName="lib\Utility\SaveScreenshot.xaml">
+            <ui:InvokeWorkflowFile.Arguments>
+              <InArgument x:TypeArguments="x:String" x:Key="in_OutputPath">[screenshotPath]</InArgument>
+              <InArgument x:TypeArguments="x:Int32" x:Key="in_RetryCount">[in_NetworkRetryCount]</InArgument>
+              <InArgument x:TypeArguments="x:TimeSpan" x:Key="in_RetryTimeout">[in_NetworkRetryTimeout]</InArgument>
+            </ui:InvokeWorkflowFile.Arguments>
+          </ui:InvokeWorkflowFile>
+        </TryCatch.Try>
+        <TryCatch.Catches>
+          <Catch x:TypeArguments="s:Exception" sap:VirtualizedContainerService.HintSize="586,329.333333333333" sap2010:WorkflowViewState.IdRef="Catch`1_3">
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                <x:Boolean x:Key="IsPinned">False</x:Boolean>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+            <ActivityAction x:TypeArguments="s:Exception">
+              <ActivityAction.Argument>
+                <DelegateInArgument x:TypeArguments="s:Exception" Name="exception" />
+              </ActivityAction.Argument>
+              <If Condition="[in_FailOnScreenshot]" sap:VirtualizedContainerService.HintSize="580,258.666666666667" sap2010:WorkflowViewState.IdRef="If_6">
+                <If.Then>
+                  <Rethrow sap:VirtualizedContainerService.HintSize="200,22" sap2010:WorkflowViewState.IdRef="Rethrow_3" />
+                </If.Then>
+                <If.Else>
+                  <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="334,94.6666666666667" sap2010:WorkflowViewState.IdRef="LogMessage_13" Level="Warn" Message="[ActivityName + &quot;: FailedScreenshot: &quot; + exception.Message]" />
+                </If.Else>
+              </If>
+            </ActivityAction>
+          </Catch>
+        </TryCatch.Catches>
+      </TryCatch>
+    </Sequence>
+    <Flowchart DisplayName="Steps" sap:VirtualizedContainerService.HintSize="909.333333333333,636" sap2010:WorkflowViewState.IdRef="Flowchart_2">
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          <av:Point x:Key="ShapeLocation">280,2.5</av:Point>
+          <av:Size x:Key="ShapeSize">60,74.6666666666667</av:Size>
+          <av:PointCollection x:Key="ConnectorLocation">310,77.1666666666667 310,107.166666666667 309.833333333333,107.166666666667 309.833333333333,146.5</av:PointCollection>
+          <x:Double x:Key="Width">875.33333333333314</x:Double>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+      <Flowchart.StartNode>
+        <x:Reference>__ReferenceID4</x:Reference>
+      </Flowchart.StartNode>
+      <FlowStep x:Name="__ReferenceID0">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <av:Point x:Key="ShapeLocation">20,387</av:Point>
+            <av:Size x:Key="ShapeSize">200,69.3333333333333</av:Size>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+        <Sequence DisplayName="Send Email" sap:VirtualizedContainerService.HintSize="200,69.3333333333333" sap2010:WorkflowViewState.IdRef="Sequence_19">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <If Condition="[in_MaxReached]" sap:VirtualizedContainerService.HintSize="840,900" sap2010:WorkflowViewState.IdRef="If_7">
+            <If.Then>
+              <Sequence sap:VirtualizedContainerService.HintSize="418,736" sap2010:WorkflowViewState.IdRef="Sequence_17">
+                <Sequence.Variables>
+                  <Variable x:TypeArguments="ss:SecureString" Name="EmailPassword" />
+                  <Variable x:TypeArguments="x:String" Name="EmailUsername" />
+                </Sequence.Variables>
+                <sap:WorkflowViewStateService.ViewState>
+                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                    <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                  </scg:Dictionary>
+                </sap:WorkflowViewStateService.ViewState>
+                <ui:LogMessage DisplayName="LM_Initialize_Max" sap:VirtualizedContainerService.HintSize="376,94.6666666666667" sap2010:WorkflowViewState.IdRef="LogMessage_14" Level="Info" Message="[in_Reference + &quot;: Max errors reached, sending notification&quot;]" />
+                <ui:GetRobotCredential TimeoutMS="{x:Null}" AssetName="[in_EmailCredentialName]" DisplayName="Get Credential" sap:VirtualizedContainerService.HintSize="376,80.6666666666667" sap2010:WorkflowViewState.IdRef="GetRobotCredential_1" Password="[EmailPassword]" Username="[EmailUsername]" />
+                <ui:RetryScope DisplayName="Retry Scope" sap:VirtualizedContainerService.HintSize="376,326.666666666667" sap2010:WorkflowViewState.IdRef="RetryScope_6" NumberOfRetries="[in_NetworkRetryCount]" RetryInterval="[in_NetworkRetryTimeout]">
+                  <ui:RetryScope.ActivityBody>
+                    <ActivityAction>
+                      <ui:SendExchangeMail ApplicationId="{x:Null}" Bcc="{x:Null}" Cc="{x:Null}" DirectoryId="{x:Null}" Domain="{x:Null}" EmailAutodiscover="{x:Null}" From="{x:Null}" MailMessage="{x:Null}" Name="{x:Null}" Password="{x:Null}" TimeoutMS="{x:Null}" AuthenticationMode="UserNameAndPassword" Body="[in_EmailBodyTemplate]" DisplayName="Send Exchange Mail Message" ExchangeVersion="Exchange2007_SP1" sap:VirtualizedContainerService.HintSize="334,149.333333333333" sap2010:WorkflowViewState.IdRef="SendExchangeMail_3" IsBodyHtml="False" IsDraft="False" SaveCopy="False" SecurePassword="[EmailPassword]" Server="[in_MailServer]" Subject="[in_EmailSubjectTemplate]" To="[in_EmailTo]" User="[EmailUsername]" />
+                    </ActivityAction>
+                  </ui:RetryScope.ActivityBody>
+                  <ui:RetryScope.Condition>
+                    <ActivityFunc x:TypeArguments="x:Boolean" />
+                  </ui:RetryScope.Condition>
+                </ui:RetryScope>
+                <Throw Exception="[new System.Exception(ActivityName + &quot;: &quot; + error_MaxReached + &quot;: &quot; + in_Exception.Message)]" sap:VirtualizedContainerService.HintSize="376,22" sap2010:WorkflowViewState.IdRef="Throw_4" />
+              </Sequence>
+            </If.Then>
+            <If.Else>
+              <Sequence sap:VirtualizedContainerService.HintSize="376,248.666666666667" sap2010:WorkflowViewState.IdRef="Sequence_18">
+                <sap:WorkflowViewStateService.ViewState>
+                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                    <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                  </scg:Dictionary>
+                </sap:WorkflowViewStateService.ViewState>
+                <ui:LogMessage DisplayName="LM_Initialize_Max" sap:VirtualizedContainerService.HintSize="334,94.6666666666667" sap2010:WorkflowViewState.IdRef="LogMessage_15" Level="Info" Message="[in_Reference + &quot;: Initialization Error&quot;]" />
+                <Delay Duration="[in_StateDelay]" sap:VirtualizedContainerService.HintSize="334,22" sap2010:WorkflowViewState.IdRef="Delay_3" />
+              </Sequence>
+            </If.Else>
+          </If>
+        </Sequence>
+      </FlowStep>
+      <FlowStep x:Name="__ReferenceID1">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <av:Point x:Key="ShapeLocation">660,289</av:Point>
+            <av:Size x:Key="ShapeSize">200,22</av:Size>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+        <Throw Exception="[new System.Exception(ActivityName + &quot;: &quot; + error_InvalidRoute)]" sap:VirtualizedContainerService.HintSize="200,22" sap2010:WorkflowViewState.IdRef="Throw_6">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+        </Throw>
+      </FlowStep>
+      <FlowDecision x:Name="__ReferenceID4" Condition="[in_Outcome.Contains(&quot;Email&quot;)]" DisplayName="Send Email State?" sap:VirtualizedContainerService.HintSize="98.6666666666667,86.6666666666667" sap2010:WorkflowViewState.IdRef="FlowDecision_7" True="{x:Reference __ReferenceID0}">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <av:Point x:Key="ShapeLocation">260.5,146.5</av:Point>
+            <av:Size x:Key="ShapeSize">98.6666666666667,86.6666666666667</av:Size>
+            <av:PointCollection x:Key="TrueConnector">260.5,189.833333333333 120,189.833333333333 120,387</av:PointCollection>
+            <av:PointCollection x:Key="FalseConnector">359.166666666667,189.833333333333 509,189.833333333333 509,256.5</av:PointCollection>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+        <FlowDecision.False>
+          <FlowDecision x:Name="__ReferenceID2" Condition="[in_Outcome.contains(&quot;Log&quot;)]" DisplayName="Log State?" sap:VirtualizedContainerService.HintSize="70,86.6666666666667" sap2010:WorkflowViewState.IdRef="FlowDecision_5">
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                <av:Point x:Key="ShapeLocation">474,256.5</av:Point>
+                <av:Size x:Key="ShapeSize">70,86.6666666666667</av:Size>
+                <av:PointCollection x:Key="TrueConnector">474,299.833333333333 350,299.833333333333 350,394.5</av:PointCollection>
+                <av:PointCollection x:Key="FalseConnector">544,299.833333333333 574,299.833333333333 574,300 660,300</av:PointCollection>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+            <FlowDecision.True>
+              <FlowStep x:Name="__ReferenceID3">
+                <sap:WorkflowViewStateService.ViewState>
+                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                    <av:Point x:Key="ShapeLocation">250,394.5</av:Point>
+                    <av:Size x:Key="ShapeSize">200,52.6666666666667</av:Size>
+                  </scg:Dictionary>
+                </sap:WorkflowViewStateService.ViewState>
+                <ui:LogMessage DisplayName="LM_Performer" sap:VirtualizedContainerService.HintSize="200,52.6666666666667" sap2010:WorkflowViewState.IdRef="LogMessage_18" Level="Trace" Message="[in_Reference + &quot;Performer error. No additional actions to be taken by default.&quot;]">
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                </ui:LogMessage>
+              </FlowStep>
+            </FlowDecision.True>
+            <FlowDecision.False>
+              <x:Reference>__ReferenceID1</x:Reference>
+            </FlowDecision.False>
+          </FlowDecision>
+        </FlowDecision.False>
+      </FlowDecision>
+      <x:Reference>__ReferenceID2</x:Reference>
+      <x:Reference>__ReferenceID3</x:Reference>
+    </Flowchart>
+    <ui:LogMessage DisplayName="LM: Complete" sap:VirtualizedContainerService.HintSize="909.333333333333,94.6666666666667" sap2010:WorkflowViewState.IdRef="LogMessage_19" Level="Trace" Message="[ActivityName + &quot;: Complete&quot;]" />
+  </Sequence>
+</Activity>

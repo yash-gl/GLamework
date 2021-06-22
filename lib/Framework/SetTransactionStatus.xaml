@@ -1,0 +1,647 @@
+<Activity mc:Ignorable="sap sap2010" x:Class="SetTransactionStatus" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:av="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:this="clr-namespace:" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <x:Members>
+    <x:Property Name="in_SystemException" Type="InArgument(s:Exception)" />
+    <x:Property Name="in_Transaction" Type="InArgument(ui:QueueItem)" />
+    <x:Property Name="in_BusinessException" Type="InArgument(ui:BusinessRuleException)" />
+    <x:Property Name="Count_MaxRetry" Type="InArgument(x:Int32)" />
+    <x:Property Name="Outcome_Successful" Type="InArgument(x:String)" />
+    <x:Property Name="Outcome_SystemException" Type="InArgument(x:String)" />
+    <x:Property Name="Outcome_BusinessException" Type="InArgument(x:String)" />
+    <x:Property Name="Message_Successful" Type="InArgument(x:String)" />
+    <x:Property Name="Message_SystemException" Type="InArgument(x:String)" />
+    <x:Property Name="Message_FailedPost" Type="InArgument(x:String)" />
+    <x:Property Name="Enable_PostExceptionHandling" Type="InArgument(x:Boolean)" />
+    <x:Property Name="Enable_AlwaysSuccessful" Type="InArgument(x:Boolean)" />
+    <x:Property Name="in_RunMode" Type="InArgument(x:String)" />
+    <x:Property Name="in_Reference" Type="InArgument(x:String)" />
+  </x:Members>
+  <this:SetTransactionStatus.in_SystemException>
+    <InArgument x:TypeArguments="s:Exception" />
+  </this:SetTransactionStatus.in_SystemException>
+  <this:SetTransactionStatus.in_Transaction>
+    <InArgument x:TypeArguments="ui:QueueItem" />
+  </this:SetTransactionStatus.in_Transaction>
+  <this:SetTransactionStatus.in_BusinessException>
+    <InArgument x:TypeArguments="ui:BusinessRuleException" />
+  </this:SetTransactionStatus.in_BusinessException>
+  <this:SetTransactionStatus.Outcome_Successful>
+    <InArgument x:TypeArguments="x:String" />
+  </this:SetTransactionStatus.Outcome_Successful>
+  <this:SetTransactionStatus.Outcome_SystemException>
+    <InArgument x:TypeArguments="x:String" />
+  </this:SetTransactionStatus.Outcome_SystemException>
+  <this:SetTransactionStatus.Outcome_BusinessException>
+    <InArgument x:TypeArguments="x:String" />
+  </this:SetTransactionStatus.Outcome_BusinessException>
+  <this:SetTransactionStatus.Message_Successful>
+    <InArgument x:TypeArguments="x:String" />
+  </this:SetTransactionStatus.Message_Successful>
+  <this:SetTransactionStatus.Message_SystemException>
+    <InArgument x:TypeArguments="x:String" />
+  </this:SetTransactionStatus.Message_SystemException>
+  <sap:VirtualizedContainerService.HintSize>1809.33333333333,3612</sap:VirtualizedContainerService.HintSize>
+  <sap2010:WorkflowViewState.IdRef>ActivityBuilder_1</sap2010:WorkflowViewState.IdRef>
+  <TextExpression.NamespacesForImplementation>
+    <scg:List x:TypeArguments="x:String" Capacity="22">
+      <x:String>System.Activities</x:String>
+      <x:String>System.Activities.Statements</x:String>
+      <x:String>System</x:String>
+      <x:String>System.Collections</x:String>
+      <x:String>System.Collections.Generic</x:String>
+      <x:String>UiPath.Core</x:String>
+      <x:String>UiPath.Core.Activities</x:String>
+      <x:String>System.Reflection</x:String>
+      <x:String>System.Runtime.InteropServices</x:String>
+      <x:String>System.Activities.DynamicUpdate</x:String>
+      <x:String>System.Collections.ObjectModel</x:String>
+      <x:String>System.Runtime.Serialization</x:String>
+      <x:String>System.Activities.Expressions</x:String>
+      <x:String>System.Data</x:String>
+      <x:String>System.Diagnostics</x:String>
+      <x:String>System.Drawing</x:String>
+      <x:String>System.Linq</x:String>
+      <x:String>System.Xml</x:String>
+      <x:String>System.Xml.Linq</x:String>
+      <x:String>System.IO</x:String>
+      <x:String>System.Net.Mail</x:String>
+      <x:String>Microsoft.VisualBasic</x:String>
+    </scg:List>
+  </TextExpression.NamespacesForImplementation>
+  <TextExpression.ReferencesForImplementation>
+    <scg:List x:TypeArguments="AssemblyReference" Capacity="30">
+      <AssemblyReference>System.Activities</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
+      <AssemblyReference>mscorlib</AssemblyReference>
+      <AssemblyReference>System.Data</AssemblyReference>
+      <AssemblyReference>System.Data.DataSetExtensions</AssemblyReference>
+      <AssemblyReference>System</AssemblyReference>
+      <AssemblyReference>System.Drawing</AssemblyReference>
+      <AssemblyReference>System.Core</AssemblyReference>
+      <AssemblyReference>System.Xml</AssemblyReference>
+      <AssemblyReference>System.Xml.Linq</AssemblyReference>
+      <AssemblyReference>PresentationFramework</AssemblyReference>
+      <AssemblyReference>WindowsBase</AssemblyReference>
+      <AssemblyReference>PresentationCore</AssemblyReference>
+      <AssemblyReference>System.Xaml</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.UiAutomation.Activities</AssemblyReference>
+      <AssemblyReference>System.Memory</AssemblyReference>
+      <AssemblyReference>System.ServiceModel</AssemblyReference>
+      <AssemblyReference>Microsoft.Bcl.AsyncInterfaces</AssemblyReference>
+      <AssemblyReference>System.Runtime.Serialization</AssemblyReference>
+      <AssemblyReference>System.ValueTuple</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.Composition</AssemblyReference>
+      <AssemblyReference>UiPath.OCR.Activities.Design</AssemblyReference>
+      <AssemblyReference>UiPath.Mail</AssemblyReference>
+      <AssemblyReference>UiPath.UIAutomationCore</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities.Design</AssemblyReference>
+      <AssemblyReference>UiPath.Excel.Activities.Design</AssemblyReference>
+      <AssemblyReference>UiPath.Excel.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.Excel</AssemblyReference>
+      <AssemblyReference>System.ServiceModel.Activities</AssemblyReference>
+    </scg:List>
+  </TextExpression.ReferencesForImplementation>
+  <Sequence sap2010:Annotation.AnnotationText="@TestCase&#xD;&#xA;@ID: Successful&#xD;&#xA;@Description: A successful transaction was processed&#xD;&#xA;@Preconditions:&#xD;&#xA;1) All required data for transaction output is an argument&#xD;&#xA;2) Queue/Item exist in 'In-Progress' status&#xD;&#xA;@Postconditions&#xD;&#xA;1) Queue item is set to successful&#xD;&#xA;2) Queue item has necessary fields in output data for reporting&#xD;&#xA;&#xD;&#xA;@TestCase&#xD;&#xA;@ID: BusinessException&#xD;&#xA;@Description: A business exception was processed and the message is added to the reason field of the error&#xD;&#xA;@Preconditions:&#xD;&#xA;1) All required data for transaction output is an argument&#xD;&#xA;2) Queue/Item exist in 'In-Progress' status&#xD;&#xA;@Postconditions&#xD;&#xA;1) Queue item is set to Failed, with reason of business exception&#xD;&#xA;2) Message of in_BusinessException is present as the reason of the failure&#xD;&#xA;&#xD;&#xA;@TestCase&#xD;&#xA;@ID: BusinessExceptionAlwaysSuccessful&#xD;&#xA;@Description: A business exception was processed and the message is added to the reason field of the error&#xD;&#xA;@Preconditions:&#xD;&#xA;1) All required data for transaction output is an argument&#xD;&#xA;2) Queue/Item exist in 'In-Progress' status&#xD;&#xA;@Postconditions&#xD;&#xA;1) Queue item is set to Failed, with reason of business exception&#xD;&#xA;2) Message of in_BusinessException is present as the reason of the failure&#xD;&#xA;3) Queue item is set to Success with necessary output data for reporting&#xD;&#xA;&#xD;&#xA;@TestCase&#xD;&#xA;@ID: SystemExceptionWithinMax&#xD;&#xA;@Description: A system exception was processed and the message is added to the reason field of the error&#xD;&#xA;@Preconditions:&#xD;&#xA;1) All required data for transaction output is an argument&#xD;&#xA;2) Queue/Item exist in 'In-Progress' status&#xD;&#xA;@Postconditions&#xD;&#xA;1) Queue item is set to Failed, with reason of application exception&#xD;&#xA;2) Message of in_SystemException is present as the reason of the failure&#xD;&#xA;&#xD;&#xA;@TestCase&#xD;&#xA;@ID: SystemExceptionReachedMaxPostDisabled&#xD;&#xA;@Description: A generic user-friendly exception message is used if the maximum count is surpassed&#xD;&#xA;@Preconditions:&#xD;&#xA;1) All required data for transaction output is an argument&#xD;&#xA;2) Queue/Item exist in 'In-Progress' status&#xD;&#xA;@Postconditions&#xD;&#xA;1) Queue item is set to Failed, with reason of application exception&#xD;&#xA;2) Message_SystemException is present as the reason of the failure&#xD;&#xA;&#xD;&#xA;@TestCase&#xD;&#xA;@ID: SystemExceptionReachedMaxPostDisabledAlwaysSuccessful&#xD;&#xA;@Description: A generic user-friendly exception message is used if the maximum count is surpassed&#xD;&#xA;@Preconditions:&#xD;&#xA;1) All required data for transaction output is an argument&#xD;&#xA;2) Queue/Item exist in 'In-Progress' status&#xD;&#xA;@Postconditions&#xD;&#xA;1) Queue item is set to Failed, with reason of application exception&#xD;&#xA;2) Message_SystemException is present as the reason of the failure&#xD;&#xA;3) Queue item is set to Success with necessary output data for reporting&#xD;&#xA;&#xD;&#xA;@TestCase&#xD;&#xA;@ID: SystemExceptionReachedMaxPostEnabledSuccess&#xD;&#xA;@Description: A generic user-friendly exception message is used if the maximum count is surpassed&#xD;&#xA;@Preconditions:&#xD;&#xA;1) All required data for transaction output is an argument&#xD;&#xA;2) Queue/Item exist in 'In-Progress' status&#xD;&#xA;@Postconditions&#xD;&#xA;1) PostException steps are executed successfully&#xD;&#xA;2) Queue item is set to Failed, with reason of application exception&#xD;&#xA;3) Message_SystemException is present as the reason of the failure&#xD;&#xA;&#xD;&#xA;@TestCase&#xD;&#xA;@ID: SystemExceptionReachedMaxPostEnabledSuccessAlwaysSuccessful&#xD;&#xA;@Description: A generic user-friendly exception message is used if the maximum count is surpassed&#xD;&#xA;@Preconditions:&#xD;&#xA;1) All required data for transaction output is an argument&#xD;&#xA;2) Queue/Item exist in 'In-Progress' status&#xD;&#xA;@Postconditions&#xD;&#xA;1) PostException steps are executed successfully&#xD;&#xA;2) Queue item is set to Failed, with reason of application exception&#xD;&#xA;3) Message_SystemException is present as the reason of the failure&#xD;&#xA;4) Queue item is set to Success with necessary output data for reporting&#xD;&#xA;&#xD;&#xA;@TestCase&#xD;&#xA;@ID: SystemExceptionReachedMaxPostEnabledFailed&#xD;&#xA;@Description: A generic user-friendly exception message is used if the maximum count is surpassed&#xD;&#xA;@Preconditions:&#xD;&#xA;1) All required data for transaction output is an argument&#xD;&#xA;2) Queue/Item exist in 'In-Progress' status&#xD;&#xA;@Postconditions&#xD;&#xA;1) PostException steps are executed unsuccessfully&#xD;&#xA;2) Queue item is set to Failed, with reason of application exception&#xD;&#xA;3) Message_FailedPost is present as the reason of the failure&#xD;&#xA;&#xD;&#xA;@TestCase&#xD;&#xA;@ID: SystemExceptionReachedMaxPostEnabledFailedAlwaysSuccessful&#xD;&#xA;@Description: A generic user-friendly exception message is used if the maximum count is surpassed&#xD;&#xA;@Preconditions:&#xD;&#xA;1) All required data for transaction output is an argument&#xD;&#xA;2) Queue/Item exist in 'In-Progress' status&#xD;&#xA;@Postconditions&#xD;&#xA;1) PostException steps are executed unsuccessfully&#xD;&#xA;2) Queue item is set to Failed, with reason of application exception&#xD;&#xA;3) Message_FailedPost is present as the reason of the failure&#xD;&#xA;4) Queue item is set to Success with necessary output data for reporting" DisplayName="Framework.SetTransactionStatus" sap:VirtualizedContainerService.HintSize="1512,3547.33333333333" sap2010:WorkflowViewState.IdRef="Sequence_2">
+    <Sequence.Variables>
+      <Variable x:TypeArguments="x:String" Name="ActivityName">
+        <Variable.Default>
+          <Literal x:TypeArguments="x:String">Framework.SetTransactionStatus</Literal>
+        </Variable.Default>
+      </Variable>
+    </Sequence.Variables>
+    <sap:WorkflowViewStateService.ViewState>
+      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+        <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+      </scg:Dictionary>
+    </sap:WorkflowViewStateService.ViewState>
+    <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Invoke UpdateActivityName workflow" sap:VirtualizedContainerService.HintSize="1470,114" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_1" LogEntry="No" LogExit="No" UnSafe="False" WorkflowFileName="lib\Utility\UpdateActivityName.xaml">
+      <ui:InvokeWorkflowFile.Arguments>
+        <InOutArgument x:TypeArguments="x:String" x:Key="ActivityName">[ActivityName]</InOutArgument>
+        <InArgument x:TypeArguments="x:String" x:Key="in_Reference">[in_Reference]</InArgument>
+      </ui:InvokeWorkflowFile.Arguments>
+    </ui:InvokeWorkflowFile>
+    <ui:LogMessage DisplayName="LM: Start" sap:VirtualizedContainerService.HintSize="1470,94.6666666666667" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Info" Message="[ActivityName + &quot;: Starting&quot;]" />
+    <Switch x:TypeArguments="x:String" DisplayName="Initialize" Expression="[in_RunMode.ToLower.Trim]" sap:VirtualizedContainerService.HintSize="1470,276" sap2010:WorkflowViewState.IdRef="Switch`1_1">
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          <x:Boolean x:Key="IsPinned">False</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+      <Sequence x:Key="Unit" DisplayName="Unit Initialization" sap:VirtualizedContainerService.HintSize="200,84.6666666666667" sap2010:WorkflowViewState.IdRef="Sequence_3">
+        <Sequence.Variables>
+          <Variable x:TypeArguments="x:String" Default="Data\Config.xlsx" Name="ConfigPath" />
+        </Sequence.Variables>
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </Sequence>
+    </Switch>
+    <Flowchart sap:VirtualizedContainerService.HintSize="1470,1055.33333333333" sap2010:WorkflowViewState.IdRef="Flowchart_1">
+      <Flowchart.Variables>
+        <Variable x:TypeArguments="s:Exception" Name="PostException">
+          <Variable.Default>
+            <mva:VisualBasicValue x:TypeArguments="s:Exception" ExpressionText="Nothing" />
+          </Variable.Default>
+        </Variable>
+        <Variable x:TypeArguments="x:String" Name="Outcome">
+          <Variable.Default>
+            <Literal x:TypeArguments="x:String" Value="" />
+          </Variable.Default>
+        </Variable>
+        <Variable x:TypeArguments="x:String" Name="Message">
+          <Variable.Default>
+            <Literal x:TypeArguments="x:String" Value="" />
+          </Variable.Default>
+        </Variable>
+        <Variable x:TypeArguments="x:String" Name="Details" />
+      </Flowchart.Variables>
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          <av:Point x:Key="ShapeLocation">950,2.66666666666666</av:Point>
+          <av:Size x:Key="ShapeSize">60,74.6666666666667</av:Size>
+          <x:Double x:Key="Width">1436</x:Double>
+          <x:Double x:Key="Height">1019.2320000000002</x:Double>
+          <av:PointCollection x:Key="ConnectorLocation">980,77.3333333333333 980,106.666666666667</av:PointCollection>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+      <Flowchart.StartNode>
+        <x:Reference>__ReferenceID17</x:Reference>
+      </Flowchart.StartNode>
+      <FlowStep x:Name="__ReferenceID0">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <av:Point x:Key="ShapeLocation">770,839</av:Point>
+            <av:Size x:Key="ShapeSize">200,22</av:Size>
+            <av:PointCollection x:Key="ConnectorLocation">640,1041 640,1134.28266666667 1617,1134.28266666667 1617,40 880,40</av:PointCollection>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+        <Throw Exception="[if(PostException isnot nothing, postexception, in_SystemException)]" sap:VirtualizedContainerService.HintSize="200,22" sap2010:WorkflowViewState.IdRef="Throw_1">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+        </Throw>
+      </FlowStep>
+      <FlowStep x:Name="__ReferenceID1">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <av:Point x:Key="ShapeLocation">1210,683.666666666667</av:Point>
+            <av:Size x:Key="ShapeSize">200,52.6666666666667</av:Size>
+            <av:PointCollection x:Key="ConnectorLocation">1180,1020 1617,1020 1617,40 880,40</av:PointCollection>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+        <ui:SetTransactionStatus ContinueOnError="{x:Null}" Reason="{x:Null}" ServiceBaseAddress="{x:Null}" TimeoutMS="{x:Null}" DisplayName="Set Successful" ErrorType="Business" sap:VirtualizedContainerService.HintSize="200,52.6666666666667" sap2010:WorkflowViewState.IdRef="SetTransactionStatus_6" Status="Successful" TransactionItem="[in_Transaction]">
+          <ui:SetTransactionStatus.Analytics>
+            <scg:Dictionary x:TypeArguments="x:String, InArgument" />
+          </ui:SetTransactionStatus.Analytics>
+          <ui:SetTransactionStatus.Output>
+            <InArgument x:TypeArguments="x:String" x:Key="Outcome">
+              <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="Outcome" />
+            </InArgument>
+            <InArgument x:TypeArguments="x:String" x:Key="Message">
+              <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="Message" />
+            </InArgument>
+          </ui:SetTransactionStatus.Output>
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+        </ui:SetTransactionStatus>
+      </FlowStep>
+      <FlowStep x:Name="__ReferenceID2">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <av:Point x:Key="ShapeLocation">770,913.666666666667</av:Point>
+            <av:Size x:Key="ShapeSize">200,52.6666666666667</av:Size>
+            <av:PointCollection x:Key="ConnectorLocation">870,913.666666666667 870,861</av:PointCollection>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+        <ui:SetTransactionStatus ContinueOnError="{x:Null}" Reason="{x:Null}" ServiceBaseAddress="{x:Null}" TimeoutMS="{x:Null}" DisplayName="Set Successful" ErrorType="Business" sap:VirtualizedContainerService.HintSize="200,52.6666666666667" sap2010:WorkflowViewState.IdRef="SetTransactionStatus_2" Status="Successful" TransactionItem="[in_Transaction]">
+          <ui:SetTransactionStatus.Analytics>
+            <scg:Dictionary x:TypeArguments="x:String, InArgument" />
+          </ui:SetTransactionStatus.Analytics>
+          <ui:SetTransactionStatus.Output>
+            <InArgument x:TypeArguments="x:String" x:Key="Outcome">
+              <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="Outcome" />
+            </InArgument>
+            <InArgument x:TypeArguments="x:String" x:Key="Message">
+              <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="Message" />
+            </InArgument>
+          </ui:SetTransactionStatus.Output>
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+        </ui:SetTransactionStatus>
+        <FlowStep.Next>
+          <x:Reference>__ReferenceID0</x:Reference>
+        </FlowStep.Next>
+      </FlowStep>
+      <FlowStep x:Name="__ReferenceID3">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <av:Point x:Key="ShapeLocation">990,563.666666666667</av:Point>
+            <av:Size x:Key="ShapeSize">200,52.6666666666667</av:Size>
+            <av:PointCollection x:Key="ConnectorLocation">1090,616.333333333334 1090,646.333333333334 1091.66666666667,646.333333333334 1091.66666666667,666.666666666667</av:PointCollection>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+        <ui:SetTransactionStatus ContinueOnError="{x:Null}" ServiceBaseAddress="{x:Null}" TimeoutMS="{x:Null}" DisplayName="Set Failed" ErrorType="Application" sap:VirtualizedContainerService.HintSize="200,52.6666666666667" sap2010:WorkflowViewState.IdRef="SetTransactionStatus_5" Reason="[in_BusinessException.Message]" Status="Failed" TransactionItem="[in_Transaction]">
+          <ui:SetTransactionStatus.Analytics>
+            <scg:Dictionary x:TypeArguments="x:String, InArgument" />
+          </ui:SetTransactionStatus.Analytics>
+          <ui:SetTransactionStatus.Output>
+            <scg:Dictionary x:TypeArguments="x:String, InArgument" />
+          </ui:SetTransactionStatus.Output>
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+        </ui:SetTransactionStatus>
+        <FlowStep.Next>
+          <FlowDecision x:Name="__ReferenceID15" DisplayName="AlwaysSuccessful?" sap:VirtualizedContainerService.HintSize="102,86.6666666666667" sap2010:WorkflowViewState.IdRef="FlowDecision_6">
+            <FlowDecision.Condition>
+              <mva:VisualBasicValue x:TypeArguments="x:Boolean" ExpressionText="Not Enable_AlwaysSuccessful" />
+            </FlowDecision.Condition>
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                <av:Point x:Key="ShapeLocation">1040.66666666667,666.666666666667</av:Point>
+                <av:Size x:Key="ShapeSize">102,86.6666666666667</av:Size>
+                <av:PointCollection x:Key="FalseConnector">1142.66666666667,710 1210,710</av:PointCollection>
+                <x:String x:Key="FalseLabel">True</x:String>
+                <x:String x:Key="TrueLabel">False</x:String>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+            <FlowDecision.False>
+              <x:Reference>__ReferenceID1</x:Reference>
+            </FlowDecision.False>
+          </FlowDecision>
+        </FlowStep.Next>
+      </FlowStep>
+      <FlowStep x:Name="__ReferenceID4">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <av:Point x:Key="ShapeLocation">130,713.666666666667</av:Point>
+            <av:Size x:Key="ShapeSize">200,52.6666666666667</av:Size>
+            <av:PointCollection x:Key="ConnectorLocation">230,766.333333333334 230,806.666666666667</av:PointCollection>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+        <ui:SetTransactionStatus ContinueOnError="{x:Null}" ServiceBaseAddress="{x:Null}" TimeoutMS="{x:Null}" Details="[Details]" DisplayName="Set Failed" ErrorType="Application" sap:VirtualizedContainerService.HintSize="200,52.6666666666667" sap2010:WorkflowViewState.IdRef="SetTransactionStatus_3" Reason="[Message]" Status="Failed" TransactionItem="[in_Transaction]">
+          <ui:SetTransactionStatus.Analytics>
+            <scg:Dictionary x:TypeArguments="x:String, InArgument" />
+          </ui:SetTransactionStatus.Analytics>
+          <ui:SetTransactionStatus.Output>
+            <scg:Dictionary x:TypeArguments="x:String, InArgument" />
+          </ui:SetTransactionStatus.Output>
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+        </ui:SetTransactionStatus>
+        <FlowStep.Next>
+          <FlowDecision x:Name="__ReferenceID16" Condition="[Not Enable_AlwaysSuccessful]" DisplayName="AlwaysSuccessful?" sap:VirtualizedContainerService.HintSize="102,86.6666666666667" sap2010:WorkflowViewState.IdRef="FlowDecision_8" True="{x:Reference __ReferenceID2}" False="{x:Reference __ReferenceID0}">
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                <av:Point x:Key="ShapeLocation">179,806.666666666667</av:Point>
+                <av:Size x:Key="ShapeSize">102,86.6666666666667</av:Size>
+                <av:PointCollection x:Key="FalseConnector">281,850 770,850</av:PointCollection>
+                <av:PointCollection x:Key="TrueConnector">179,850 149,850 149,940 770,940</av:PointCollection>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+          </FlowDecision>
+        </FlowStep.Next>
+      </FlowStep>
+      <FlowStep x:Name="__ReferenceID11">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <av:Point x:Key="ShapeLocation">770,563.666666666667</av:Point>
+            <av:Size x:Key="ShapeSize">200,52.6666666666667</av:Size>
+            <av:PointCollection x:Key="ConnectorLocation">870,616.333333333334 870,839</av:PointCollection>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+        <ui:SetTransactionStatus ContinueOnError="{x:Null}" ServiceBaseAddress="{x:Null}" TimeoutMS="{x:Null}" Details="[in_SystemException.StackTrace]" DisplayName="Set Failed" ErrorType="Application" sap:VirtualizedContainerService.HintSize="200,52.6666666666667" sap2010:WorkflowViewState.IdRef="SetTransactionStatus_4" Reason="[in_SystemException.Message]" Status="Failed" TransactionItem="[in_Transaction]">
+          <ui:SetTransactionStatus.Analytics>
+            <scg:Dictionary x:TypeArguments="x:String, InArgument" />
+          </ui:SetTransactionStatus.Analytics>
+          <ui:SetTransactionStatus.Output>
+            <scg:Dictionary x:TypeArguments="x:String, InArgument" />
+          </ui:SetTransactionStatus.Output>
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+        </ui:SetTransactionStatus>
+        <FlowStep.Next>
+          <x:Reference>__ReferenceID0</x:Reference>
+        </FlowStep.Next>
+      </FlowStep>
+      <FlowStep x:Name="__ReferenceID5">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <av:Point x:Key="ShapeLocation">990,483.666666666667</av:Point>
+            <av:Size x:Key="ShapeSize">200,52.6666666666667</av:Size>
+            <av:PointCollection x:Key="ConnectorLocation">1090,536.333333333333 1090,563.666666666667</av:PointCollection>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+        <ui:MultipleAssign DisplayName="Setup Business Exception Variables" sap:VirtualizedContainerService.HintSize="200,52.6666666666667" sap2010:WorkflowViewState.IdRef="MultipleAssign_4">
+          <ui:MultipleAssign.AssignOperations>
+            <scg:List x:TypeArguments="ui:AssignOperation" Capacity="4">
+              <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_10">
+                <ui:AssignOperation.To>
+                  <OutArgument x:TypeArguments="x:String">[Outcome]</OutArgument>
+                </ui:AssignOperation.To>
+                <ui:AssignOperation.Value>
+                  <InArgument x:TypeArguments="x:String">[outcome_BusinessException]</InArgument>
+                </ui:AssignOperation.Value>
+              </ui:AssignOperation>
+              <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_11">
+                <ui:AssignOperation.To>
+                  <OutArgument x:TypeArguments="x:String">[Message]</OutArgument>
+                </ui:AssignOperation.To>
+                <ui:AssignOperation.Value>
+                  <InArgument x:TypeArguments="x:String">[in_BusinessException.Message]</InArgument>
+                </ui:AssignOperation.Value>
+              </ui:AssignOperation>
+            </scg:List>
+          </ui:MultipleAssign.AssignOperations>
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+        </ui:MultipleAssign>
+        <FlowStep.Next>
+          <x:Reference>__ReferenceID3</x:Reference>
+        </FlowStep.Next>
+      </FlowStep>
+      <FlowStep x:Name="__ReferenceID6">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <av:Point x:Key="ShapeLocation">1210,483.666666666667</av:Point>
+            <av:Size x:Key="ShapeSize">200,52.6666666666667</av:Size>
+            <av:PointCollection x:Key="ConnectorLocation">1310,536.333333333334 1310,683.666666666667</av:PointCollection>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+        <ui:MultipleAssign DisplayName="Setup Successful Variables" sap:VirtualizedContainerService.HintSize="200,52.6666666666667" sap2010:WorkflowViewState.IdRef="MultipleAssign_5">
+          <ui:MultipleAssign.AssignOperations>
+            <scg:List x:TypeArguments="ui:AssignOperation" Capacity="4">
+              <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_13">
+                <ui:AssignOperation.To>
+                  <OutArgument x:TypeArguments="x:String">[Outcome]</OutArgument>
+                </ui:AssignOperation.To>
+                <ui:AssignOperation.Value>
+                  <InArgument x:TypeArguments="x:String">[outcome_Successful]</InArgument>
+                </ui:AssignOperation.Value>
+              </ui:AssignOperation>
+              <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_14">
+                <ui:AssignOperation.To>
+                  <OutArgument x:TypeArguments="x:String">[Message]</OutArgument>
+                </ui:AssignOperation.To>
+                <ui:AssignOperation.Value>
+                  <InArgument x:TypeArguments="x:String">[message_Successful]</InArgument>
+                </ui:AssignOperation.Value>
+              </ui:AssignOperation>
+            </scg:List>
+          </ui:MultipleAssign.AssignOperations>
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+        </ui:MultipleAssign>
+        <FlowStep.Next>
+          <x:Reference>__ReferenceID1</x:Reference>
+        </FlowStep.Next>
+      </FlowStep>
+      <FlowStep x:Name="__ReferenceID8">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <av:Point x:Key="ShapeLocation">240,603.666666666667</av:Point>
+            <av:Size x:Key="ShapeSize">200,52.6666666666667</av:Size>
+            <av:PointCollection x:Key="ConnectorLocation">340,656.333333333334 340,686.333333333334 230,686.333333333334 230,713.666666666667</av:PointCollection>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+        <ui:MultipleAssign DisplayName="Setup System Exception Variables" sap:VirtualizedContainerService.HintSize="200,52.6666666666667" sap2010:WorkflowViewState.IdRef="MultipleAssign_2">
+          <ui:MultipleAssign.AssignOperations>
+            <scg:List x:TypeArguments="ui:AssignOperation" Capacity="4">
+              <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_4">
+                <ui:AssignOperation.To>
+                  <OutArgument x:TypeArguments="x:String">[outcome]</OutArgument>
+                </ui:AssignOperation.To>
+                <ui:AssignOperation.Value>
+                  <InArgument x:TypeArguments="x:String">[outcome_SystemException]</InArgument>
+                </ui:AssignOperation.Value>
+              </ui:AssignOperation>
+              <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_5">
+                <ui:AssignOperation.To>
+                  <OutArgument x:TypeArguments="x:String">[Message]</OutArgument>
+                </ui:AssignOperation.To>
+                <ui:AssignOperation.Value>
+                  <InArgument x:TypeArguments="x:String">[message_SystemException]</InArgument>
+                </ui:AssignOperation.Value>
+              </ui:AssignOperation>
+              <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_17">
+                <ui:AssignOperation.To>
+                  <OutArgument x:TypeArguments="x:String">[Details]</OutArgument>
+                </ui:AssignOperation.To>
+                <ui:AssignOperation.Value>
+                  <InArgument x:TypeArguments="x:String">[in_SystemException.Message]</InArgument>
+                </ui:AssignOperation.Value>
+              </ui:AssignOperation>
+            </scg:List>
+          </ui:MultipleAssign.AssignOperations>
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+        </ui:MultipleAssign>
+        <FlowStep.Next>
+          <x:Reference>__ReferenceID4</x:Reference>
+        </FlowStep.Next>
+      </FlowStep>
+      <FlowStep x:Name="__ReferenceID7">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <av:Point x:Key="ShapeLocation">20,603.666666666667</av:Point>
+            <av:Size x:Key="ShapeSize">200,52.6666666666667</av:Size>
+            <av:PointCollection x:Key="ConnectorLocation">120,656.333333333334 120,686.333333333334 230,686.333333333334 230,713.666666666667</av:PointCollection>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+        <ui:MultipleAssign DisplayName="Setup System Exception Variables" sap:VirtualizedContainerService.HintSize="200,52.6666666666667" sap2010:WorkflowViewState.IdRef="MultipleAssign_1">
+          <ui:MultipleAssign.AssignOperations>
+            <scg:List x:TypeArguments="ui:AssignOperation" Capacity="4">
+              <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_1">
+                <ui:AssignOperation.To>
+                  <OutArgument x:TypeArguments="x:String">[Outcome]</OutArgument>
+                </ui:AssignOperation.To>
+                <ui:AssignOperation.Value>
+                  <InArgument x:TypeArguments="x:String">[outcome_SystemException]</InArgument>
+                </ui:AssignOperation.Value>
+              </ui:AssignOperation>
+              <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_2">
+                <ui:AssignOperation.To>
+                  <OutArgument x:TypeArguments="x:String">[Message]</OutArgument>
+                </ui:AssignOperation.To>
+                <ui:AssignOperation.Value>
+                  <InArgument x:TypeArguments="x:String">[message_FailedPost]</InArgument>
+                </ui:AssignOperation.Value>
+              </ui:AssignOperation>
+              <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_16">
+                <ui:AssignOperation.To>
+                  <OutArgument x:TypeArguments="x:String">[Details]</OutArgument>
+                </ui:AssignOperation.To>
+                <ui:AssignOperation.Value>
+                  <InArgument x:TypeArguments="x:String">[PostException.Message]</InArgument>
+                </ui:AssignOperation.Value>
+              </ui:AssignOperation>
+            </scg:List>
+          </ui:MultipleAssign.AssignOperations>
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+        </ui:MultipleAssign>
+        <FlowStep.Next>
+          <x:Reference>__ReferenceID4</x:Reference>
+        </FlowStep.Next>
+      </FlowStep>
+      <FlowDecision x:Name="__ReferenceID13" Condition="[in_BusinessException isnot Nothing]" DisplayName="Business Exception?" sap:VirtualizedContainerService.HintSize="110,86.6666666666667" sap2010:WorkflowViewState.IdRef="FlowDecision_4" True="{x:Reference __ReferenceID5}" False="{x:Reference __ReferenceID6}">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <av:Point x:Key="ShapeLocation">1145,336.666666666667</av:Point>
+            <av:Size x:Key="ShapeSize">110,86.6666666666667</av:Size>
+            <av:PointCollection x:Key="TrueConnector">1145,380 1090,380 1090,483.666666666667</av:PointCollection>
+            <av:PointCollection x:Key="FalseConnector">1255,380 1310,380 1310,483.666666666667</av:PointCollection>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </FlowDecision>
+      <FlowDecision x:Name="__ReferenceID9" Condition="[postException isnot Nothing]" DisplayName="Post Exception?" sap:VirtualizedContainerService.HintSize="88,86.6666666666667" sap2010:WorkflowViewState.IdRef="FlowDecision_1" True="{x:Reference __ReferenceID7}" False="{x:Reference __ReferenceID8}">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <av:Point x:Key="ShapeLocation">186,456.666666666667</av:Point>
+            <av:Size x:Key="ShapeSize">88,86.6666666666667</av:Size>
+            <av:PointCollection x:Key="FalseConnector">274,500 340,500 340,603.666666666667</av:PointCollection>
+            <av:PointCollection x:Key="TrueConnector">186,500 120,500 120,603.666666666667</av:PointCollection>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </FlowDecision>
+      <FlowStep x:Name="__ReferenceID10">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <av:Point x:Key="ShapeLocation">130,363.666666666667</av:Point>
+            <av:Size x:Key="ShapeSize">200,52.6666666666667</av:Size>
+            <av:PointCollection x:Key="ConnectorLocation">230,416.333333333333 230,456.666666666667</av:PointCollection>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+        <TryCatch DisplayName="Try Post Transaction Steps" sap:VirtualizedContainerService.HintSize="200,52.6666666666667" sap2010:WorkflowViewState.IdRef="TryCatch_1">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <TryCatch.Try>
+            <Sequence sap:VirtualizedContainerService.HintSize="200,84.6666666666667" sap2010:WorkflowViewState.IdRef="Sequence_1">
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+            </Sequence>
+          </TryCatch.Try>
+          <TryCatch.Catches>
+            <Catch x:TypeArguments="s:Exception" sap:VirtualizedContainerService.HintSize="400,22" sap2010:WorkflowViewState.IdRef="Catch`1_1">
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                  <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+              <ActivityAction x:TypeArguments="s:Exception">
+                <ActivityAction.Argument>
+                  <DelegateInArgument x:TypeArguments="s:Exception" Name="exception" />
+                </ActivityAction.Argument>
+                <Assign sap:VirtualizedContainerService.HintSize="262,62" sap2010:WorkflowViewState.IdRef="Assign_1">
+                  <Assign.To>
+                    <OutArgument x:TypeArguments="s:Exception">[PostException]</OutArgument>
+                  </Assign.To>
+                  <Assign.Value>
+                    <InArgument x:TypeArguments="s:Exception">[exception]</InArgument>
+                  </Assign.Value>
+                </Assign>
+              </ActivityAction>
+            </Catch>
+          </TryCatch.Catches>
+        </TryCatch>
+        <FlowStep.Next>
+          <x:Reference>__ReferenceID9</x:Reference>
+        </FlowStep.Next>
+      </FlowStep>
+      <FlowDecision x:Name="__ReferenceID12" Condition="[in_Transaction.RetryNo &gt;= count_MaxRetry]" DisplayName="No More Retry?" sap:VirtualizedContainerService.HintSize="88.6666666666667,86.6666666666667" sap2010:WorkflowViewState.IdRef="FlowDecision_3">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <av:Point x:Key="ShapeLocation">715.666666666667,226.666666666667</av:Point>
+            <av:Size x:Key="ShapeSize">88.6666666666667,86.6666666666667</av:Size>
+            <av:PointCollection x:Key="FalseConnector">804.333333333334,270 870,270 870,563.666666666667</av:PointCollection>
+            <av:PointCollection x:Key="TrueConnector">715.666666666667,270 437.308333333333,270 437.308333333333,286.5</av:PointCollection>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+        <FlowDecision.True>
+          <FlowDecision x:Name="__ReferenceID14" Condition="[Enable_PostExceptionHandling]" DisplayName="Post Exception Enabled?" sap:VirtualizedContainerService.HintSize="133.333333333333,86.6666666666667" sap2010:WorkflowViewState.IdRef="FlowDecision_2" True="{x:Reference __ReferenceID10}" False="{x:Reference __ReferenceID8}">
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                <av:Point x:Key="ShapeLocation">370.641666666667,286.5</av:Point>
+                <av:Size x:Key="ShapeSize">133.333333333333,86.6666666666667</av:Size>
+                <av:PointCollection x:Key="TrueConnector">370.641666666667,329.833333333333 230,329.833333333333 230,363.666666666667</av:PointCollection>
+                <av:PointCollection x:Key="FalseConnector">503.975,329.833333333333 533.975,329.833333333333 533.975,630 440,630</av:PointCollection>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+          </FlowDecision>
+        </FlowDecision.True>
+        <FlowDecision.False>
+          <x:Reference>__ReferenceID11</x:Reference>
+        </FlowDecision.False>
+      </FlowDecision>
+      <FlowDecision x:Name="__ReferenceID17" DisplayName="System Exception?" sap:VirtualizedContainerService.HintSize="103.333333333333,86.6666666666667" sap2010:WorkflowViewState.IdRef="FlowDecision_5">
+        <FlowDecision.Condition>
+          <mva:VisualBasicValue x:TypeArguments="x:Boolean" ExpressionText="in_SystemException isnot Nothing" />
+        </FlowDecision.Condition>
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <av:Point x:Key="ShapeLocation">928.333333333333,106.666666666667</av:Point>
+            <av:Size x:Key="ShapeSize">103.333333333333,86.6666666666667</av:Size>
+            <av:PointCollection x:Key="TrueConnector">928.333333333333,150 760,150 760,226.666666666667</av:PointCollection>
+            <av:PointCollection x:Key="FalseConnector">1031.66666666667,150 1200,150 1200,336.666666666667</av:PointCollection>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+        <FlowDecision.True>
+          <x:Reference>__ReferenceID12</x:Reference>
+        </FlowDecision.True>
+        <FlowDecision.False>
+          <x:Reference>__ReferenceID13</x:Reference>
+        </FlowDecision.False>
+      </FlowDecision>
+      <x:Reference>__ReferenceID14</x:Reference>
+      <x:Reference>__ReferenceID15</x:Reference>
+      <x:Reference>__ReferenceID16</x:Reference>
+    </Flowchart>
+  </Sequence>
+</Activity>
